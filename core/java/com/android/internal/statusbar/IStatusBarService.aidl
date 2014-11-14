@@ -17,6 +17,7 @@
 package com.android.internal.statusbar;
 
 import android.content.ComponentName;
+import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.service.notification.StatusBarNotification;
@@ -41,7 +42,8 @@ interface IStatusBarService
     void setImeWindowStatus(in IBinder token, int vis, int backDisposition,
             boolean showImeSwitcher);
     void expandSettingsPanel(String subPanel);
-
+    void animateNotificationsOrSettingsPanel();
+    void toggleRecentApps();
     // ---- Methods below are for use by the status bar policy services ----
     // You need the STATUS_BAR_SERVICE permission
     void registerStatusBar(IStatusBar callbacks, out List<String> iconSlots,
@@ -62,7 +64,7 @@ interface IStatusBarService
             in NotificationVisibility[] noLongerVisibleKeys);
     void onNotificationExpansionChanged(in String key, in boolean userAction, in boolean expanded);
     void setSystemUiVisibility(int vis, int mask, String cause);
-
+    void notifyLayoutChange(int direction);
     void addTile(in ComponentName tile);
     void remTile(in ComponentName tile);
     void clickTile(in ComponentName tile);

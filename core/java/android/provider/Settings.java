@@ -3707,13 +3707,87 @@ public final class Settings {
          */
 
         /**
-          * Volume keys control cursor in text fields (default is 0)
-          * 0 - Disabled
-          * 1 - Volume up/down moves cursor left/right
-          * 2 - Volume up/down moves cursor right/left
-          * @hide
-          */
-         public static final String VOLUME_KEY_CURSOR_CONTROL = "volume_key_cursor_control";
+         * Volume keys control cursor in text fields (default is 0)
+         * 0 - Disabled
+         * 1 - Volume up/down moves cursor left/right
+         * 2 - Volume up/down moves cursor right/left
+         * @hide
+         */
+        public static final String VOLUME_KEY_CURSOR_CONTROL = "volume_key_cursor_control";
+
+        /**
+         *
+         * @hide
+         */
+        public static final String NAVIGATION_BAR_BUTTONS = "navigation_bar_buttons";
+
+        /**
+         * @hide
+         */
+        public static final String NAVIGATION_BAR_HEIGHT_LANDSCAPE = "navigation_bar_height_landscape";
+
+        /**
+         * @hide
+         */
+        public static final String NAVIGATION_BAR_HEIGHT = "navigation_bar_height";
+
+        /**
+         * @hide
+         */
+        public static final String NAVIGATION_BAR_WIDTH = "navigation_bar_width";
+
+        /**
+         * @hide
+         */
+        public static final String SOFTKEY_LONG_PRESS_CONFIGURATION = "softkey_long_press_configuration";
+
+        /**
+         * Alternate navigation bar layouts
+         * @hide
+         */
+        public static final String NAVIGATION_BAR_ALTERNATE_LAYOUTS = "navigation_bar_alternate_layouts";
+
+        /**
+         * Alternate layout 2
+         * @hide
+         */
+        public static final String NAVIGATION_BAR_BUTTONS_TWO = "navigation_bar_buttons_two";
+
+        /**
+         * Alternate layout 3
+         * @hide
+         */
+        public static final String NAVIGATION_BAR_BUTTONS_THREE = "navigation_bar_buttons_three";
+
+        /**
+         * Alternate layout 4
+         * @hide
+         */
+        public static final String NAVIGATION_BAR_BUTTONS_FOUR = "navigation_bar_buttons_four";
+
+        /**
+         * Alternate layout 5
+         * @hide
+         */
+        public static final String NAVIGATION_BAR_BUTTONS_FIVE = "navigation_bar_buttons_five";
+
+        /**
+         * Allow navigation bar side keys
+         * @hide
+         */
+        public static final String NAVIGATION_BAR_SIDEKEYS = "navigation_bar_sidekeys";
+
+        /**
+         * Allow navigation bar IME arrow keys
+         * @hide
+         */
+        public static final String NAVIGATION_BAR_ARROWS = "navigation_bar_arrows";
+
+        /**
+         * Button layout for IME arrows
+         * @hide
+         */
+        public static final String NAVIGATION_IME_LAYOUT = "navigation_ime_layout";
 
         /**
          * Settings to backup. This is here so that it's in the same place as the settings

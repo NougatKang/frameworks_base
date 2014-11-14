@@ -2,6 +2,7 @@
 <!--
 **
 ** Copyright 2011, The Android Open Source Project
+** Copyright 2016, AOKP
 **
 ** Licensed under the Apache License, Version 2.0 (the "License");
 ** you may not use this file except in compliance with the License.
@@ -24,9 +25,97 @@
     android:layout_width="match_parent"
     android:background="@drawable/system_bar_background">
 
-    <com.android.systemui.statusbar.phone.NavigationBarInflaterView
-        android:id="@+id/navigation_inflater"
+    <FrameLayout android:id="@+id/rot0"
+        android:layout_height="match_parent"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        >
+
+        <!-- layout for custom navbar -->
+        <LinearLayout
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:id="@+id/nav_buttons"
+            android:animateLayoutChanges="true"
+            >
+
+        </LinearLayout>
+
+        <!-- lights out layout to match exactly -->
+        <LinearLayout
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:id="@+id/lights_out"
+            android:visibility="gone"
+            >
+        </LinearLayout>
+
+        <com.android.systemui.statusbar.policy.DeadZone
+            android:id="@+id/deadzone"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            systemui:minSize="@dimen/navigation_bar_deadzone_size"
+            systemui:maxSize="@dimen/navigation_bar_deadzone_size_max"
+            systemui:holdTime="@integer/navigation_bar_deadzone_hold"
+            systemui:decayTime="@integer/navigation_bar_deadzone_decay"
+            systemui:orientation="horizontal"
+            android:layout_gravity="top"
+            />
+    </FrameLayout>
+
+    <FrameLayout android:id="@+id/rot90"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:visibility="gone"
+        android:paddingTop="0dp"
+        >
+
+        <!-- layout for custom navbar -->
+        <LinearLayout
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:id="@+id/nav_buttons"
+            android:animateLayoutChanges="true"
+            >
+
+        </LinearLayout>
+
+        <!-- lights out layout to match exactly -->
+        <LinearLayout
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:id="@+id/lights_out"
+            android:visibility="gone"
+            >
+
+        </LinearLayout>
+
+        <com.android.systemui.statusbar.policy.DeadZone
+            android:id="@+id/deadzone"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            systemui:minSize="@dimen/navigation_bar_deadzone_size"
+            systemui:maxSize="@dimen/navigation_bar_deadzone_size_max"
+            systemui:holdTime="@integer/navigation_bar_deadzone_hold"
+            systemui:decayTime="@integer/navigation_bar_deadzone_decay"
+            systemui:orientation="vertical"
+            android:layout_gravity="top"
+            />
+    </FrameLayout>
+
+    <!-- not used -->
+    <View
+        android:id="@+id/rot270"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:visibility="gone"
+        />
 
 </com.android.systemui.statusbar.phone.NavigationBarView>

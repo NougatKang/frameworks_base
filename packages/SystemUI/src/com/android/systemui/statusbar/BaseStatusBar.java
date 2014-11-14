@@ -1240,6 +1240,9 @@ public abstract class BaseStatusBar extends SystemUI implements
         mNotificationGutsExposed = null;
     }
 
+    public void notifyLayoutChange(int direction) { }
+    public void setHomeActionListener() { }
+
     @Override
     public void showRecentApps(boolean triggeredFromAltTab, boolean fromHome) {
         int msg = MSG_SHOW_RECENT_APPS;

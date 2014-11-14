@@ -58,6 +58,7 @@ import android.service.dreams.DreamManagerInternal;
 import android.service.vr.IVrManager;
 import android.service.vr.IVrStateCallbacks;
 import android.util.EventLog;
+import android.util.Log;
 import android.util.Slog;
 import android.util.SparseIntArray;
 import android.util.TimeUtils;
@@ -803,6 +804,9 @@ public final class PowerManagerService extends SystemService
                 nativeSetFeature(POWER_FEATURE_DOUBLE_TAP_TO_WAKE, mDoubleTapWakeEnabled ? 1 : 0);
             }
         }
+
+        final boolean hasForceNavbar = CMSettings.Secure.getIntForUser(resolver,
+                CMSettings.Secure.DEV_FORCE_SHOW_NAVBAR, 0, UserHandle.USER_CURRENT) == 1;
 
         final int oldScreenBrightnessSetting = mScreenBrightnessSetting;
         mScreenBrightnessSetting = Settings.System.getIntForUser(resolver,

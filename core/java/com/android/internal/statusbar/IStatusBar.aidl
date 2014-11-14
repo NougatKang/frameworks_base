@@ -17,6 +17,7 @@
 package com.android.internal.statusbar;
 
 import android.content.ComponentName;
+import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.service.notification.StatusBarNotification;
@@ -32,6 +33,7 @@ oneway interface IStatusBar
     void animateExpandNotificationsPanel();
     void animateExpandSettingsPanel(String subPanel);
     void animateCollapsePanels();
+    void animateNotificationsOrSettingsPanel();
 
     /**
      * Notifies the status bar of a System UI visibility flag change.
@@ -64,7 +66,7 @@ oneway interface IStatusBar
     void preloadRecentApps();
     void cancelPreloadRecentApps();
     void showScreenPinningRequest(int taskId);
-
+    void notifyLayoutChange(int direction);
     void dismissKeyboardShortcutsMenu();
     void toggleKeyboardShortcutsMenu(int deviceId);
 

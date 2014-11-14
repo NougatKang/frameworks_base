@@ -75,6 +75,7 @@ public class CommandQueue extends IStatusBar.Stub {
     private static final int MSG_TOGGLE_APP_SPLIT_SCREEN       = 30 << MSG_SHIFT;
     private static final int MSG_APP_TRANSITION_FINISHED       = 31 << MSG_SHIFT;
     private static final int MSG_DISMISS_KEYBOARD_SHORTCUTS    = 32 << MSG_SHIFT;
+    private static final int MSG_ANIMATE_PANEL_FROM_NAVBAR     = 33 << MSG_SHIFT;
 
     public static final int FLAG_EXCLUDE_NONE = 0;
     public static final int FLAG_EXCLUDE_SEARCH_PANEL = 1 << 0;
@@ -99,6 +100,7 @@ public class CommandQueue extends IStatusBar.Stub {
         void animateExpandNotificationsPanel();
         void animateCollapsePanels(int flags);
         void animateExpandSettingsPanel(String obj);
+        void animateNotificationsOrSettingsPanel();
         void setSystemUiVisibility(int vis, int fullscreenStackVis,
                 int dockedStackVis, int mask, Rect fullscreenStackBounds, Rect dockedStackBounds);
         void topAppWindowChanged(boolean visible);
@@ -116,6 +118,7 @@ public class CommandQueue extends IStatusBar.Stub {
         void buzzBeepBlinked();
         void notificationLightOff();
         void notificationLightPulse(int argb, int onMillis, int offMillis);
+        void notifyLayoutChange(int direction);
         void showScreenPinningRequest(int taskId);
         void appTransitionPending();
         void appTransitionCancelled();
@@ -191,6 +194,13 @@ public class CommandQueue extends IStatusBar.Stub {
             args.arg1 = fullscreenStackBounds;
             args.arg2 = dockedStackBounds;
             mHandler.obtainMessage(MSG_SET_SYSTEMUI_VISIBILITY, args).sendToTarget();
+        }
+    }
+
+    public void animateNotificationsOrSettingsPanel() {
+        synchronized (mList) {
+        mHandler.removeMessages(MSG_ANIMATE_PANEL_FROM_NAVBAR);
+        mHandler.sendEmptyMessage(MSG_ANIMATE_PANEL_FROM_NAVBAR);
         }
     }
 
@@ -388,6 +398,10 @@ public class CommandQueue extends IStatusBar.Stub {
         }
     }
 
+    public void notifyLayoutChange(int direction) {
+        mCallbacks.notifyLayoutChange(direction);
+    }
+
     private final class H extends Handler {
         public void handleMessage(Message msg) {
             final int what = msg.what & MSG_MASK;
@@ -416,6 +430,9 @@ public class CommandQueue extends IStatusBar.Stub {
                     break;
                 case MSG_EXPAND_SETTINGS:
                     mCallbacks.animateExpandSettingsPanel((String) msg.obj);
+                    break;
+                case MSG_ANIMATE_PANEL_FROM_NAVBAR:
+                    mCallbacks.animateNotificationsOrSettingsPanel();
                     break;
                 case MSG_SET_SYSTEMUI_VISIBILITY:
                     SomeArgs args = (SomeArgs) msg.obj;

@@ -25,6 +25,7 @@ import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 
 import com.android.internal.statusbar.IStatusBarService;
+import com.android.internal.util.aokp.NavbarConstants.NavbarConstant;
 import com.android.systemui.R;
 
 public final class NavigationBarTransitions extends BarTransitions {
@@ -53,6 +54,15 @@ public final class NavigationBarTransitions extends BarTransitions {
     }
 
     private void applyMode(int mode, boolean animate, boolean force) {
+        // apply to key buttons
+        final float alpha = alphaForMode(mode);
+        View[] views = mView.getAllButtons();
+
+        for(View v : views) {
+            setKeyButtonViewQuiescentAlpha(v, alpha, animate);
+        }
+
+        applyBackButtonQuiescentAlpha(mode, animate);
 
         // apply to lights out
         applyLightsOut(isLightsOut(mode), animate, force);
@@ -99,4 +109,30 @@ public final class NavigationBarTransitions extends BarTransitions {
             return false;
         }
     };
+
+    public void applyBackButtonQuiescentAlpha(int mode, boolean animate) {
+        float backAlpha = 0;
+        View[] views = mView.getAllButtons();
+
+        for(View v : views) {
+            backAlpha = maxVisibleQuiescentAlpha(backAlpha, v);
+        }
+
+        if (backAlpha > 0) {
+            setKeyButtonViewQuiescentAlpha(mView.getBackButton(), backAlpha, animate);
+        }
+    }
+
+    private static float maxVisibleQuiescentAlpha(float max, View v) {
+        if ((v instanceof KeyButtonView) && v.isShown()) {
+            return Math.max(max, ((KeyButtonView)v).getQuiescentAlpha());
+        }
+        return max;
+    }
+
+    private void setKeyButtonViewQuiescentAlpha(View button, float alpha, boolean animate) {
+        if (button instanceof KeyButtonView) {
+            ((KeyButtonView) button).setQuiescentAlpha(alpha, animate);
+        }
+    }
 }

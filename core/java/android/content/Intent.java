@@ -757,6 +757,30 @@ public class Intent implements Parcelable, Cloneable {
             "android.intent.extra.shortcut.ICON_RESOURCE";
 
     /**
+     *  Global Action: Shows power menu dialog
+     *  <p>Input: nothing
+     *  <p>Output: nothing
+     *  @hide
+     */
+    public static final String ACTION_POWER_MENU = "android.intent.action.POWER_MENU";
+
+    /**
+     * PhoneWindowManager: Take Screenshot via takeScreenshot()
+     *  <p>Input: nothing
+     *  <p>Output: nothing
+     *  @hide
+     */
+    public static final String ACTION_SCREENSHOT = "android.intent.action.SCREENSHOT";
+
+    /**
+     * PhoneWindowManager: Take Screenrecord via takeScreenrecord()
+     *  <p>Input: nothing
+     *  <p>Output: nothing
+     *  @hide
+     */
+    public static final String ACTION_SCREENRECORD = "android.intent.action.SCREENRECORD";
+
+    /**
      * An activity that provides a user interface for adjusting application preferences.
      * Optional but recommended settings for all applications which have settings.
      */

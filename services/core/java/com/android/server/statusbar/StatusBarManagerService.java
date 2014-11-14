@@ -19,6 +19,7 @@ package com.android.server.statusbar;
 import android.app.StatusBarManager;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Rect;
 import android.os.Binder;
@@ -225,20 +226,10 @@ public class StatusBarManagerService extends IStatusBarService.Stub {
         }
 
         @Override
-        public void toggleRecentApps() {
-            if (mBar != null) {
-                try {
-                    mBar.toggleRecentApps();
-                } catch (RemoteException ex) {}
-            }
-        }
-
-        @Override
         public void setCurrentUser(int newUserId) {
             if (SPEW) Slog.d(TAG, "Setting current user to user " + newUserId);
             mCurrentUserId = newUserId;
         }
-
 
         @Override
         public void preloadRecentApps() {
@@ -254,6 +245,23 @@ public class StatusBarManagerService extends IStatusBarService.Stub {
             if (mBar != null) {
                 try {
                     mBar.cancelPreloadRecentApps();
+                } catch (RemoteException ex) {}
+            }
+        }
+
+        public void notifyLayoutChange(int direction) {
+            if (mBar != null) {
+                try {
+                    mBar.notifyLayoutChange(direction);
+                } catch (RemoteException ex) {}
+            }
+        }
+
+        @Override
+        public void toggleRecentApps() {
+            if (mBar != null) {
+                try {
+                    mBar.toggleRecentApps();
                 } catch (RemoteException ex) {}
             }
         }
@@ -410,6 +418,17 @@ public class StatusBarManagerService extends IStatusBarService.Stub {
             try {
                 mBar.clickQsTile(component);
             } catch (RemoteException ex) {
+            }
+        }
+    }
+
+    @Override
+    public void animateNotificationsOrSettingsPanel() {
+        enforceExpandStatusBar();
+        if (mBar != null) {
+            try {
+                mBar.animateNotificationsOrSettingsPanel();
+            } catch (RemoteException WTF) {
             }
         }
     }
